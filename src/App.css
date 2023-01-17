@@ -1,5 +1,54 @@
-.App {
+/* .App {
   text-align: center;
+  background-color: white;
+  height: 100vh;
+  overflow: hidden;
+} */
+
+.App {
+  height: 100vh;
+  overflow: hidden;
+  text-align: center;
+  background: linear-gradient(311deg, #6c2274, #9f2369, #4f29ae, #a52232);
+  background-size: 800% 800%;
+
+  -webkit-animation: AnimationName 30s ease infinite;
+  -moz-animation: AnimationName 30s ease infinite;
+  animation: AnimationName 30s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 0% 51%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 51%;
+  }
+}
+@-moz-keyframes AnimationName {
+  0% {
+    background-position: 0% 51%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 51%;
+  }
+}
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 51%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 51%;
+  }
 }
 
 .App-logo {
@@ -35,4 +84,165 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.main-container {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  /* background-color: black; */
+  height: 55vh;
+  width: 75vw;
+
+  background: rgba(25, 25, 25, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.title {
+  color: white;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.input-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 22px;
+  grid-row-gap: 0px;
+  padding: 2.5rem;
+  width: 50%;
+  margin-right: auto;
+}
+
+.input-field {
+  display: block;
+  width: 100%;
+  height: 2rem;
+  color: white;
+
+  background: rgba(15, 15, 15, 0.35);
+  box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.37);
+  /* backdrop-filter: blur(10px); */
+  /* -webkit-backdrop-filter: blur(10px); */
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.input-header {
+  float: left;
+  margin: 0px;
+  padding-bottom: 1rem;
+  color: white;
+  font-weight: normal;
+  font-family: "Spartan", sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* .style-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+.style-container > * {
+  margin: 0.5rem 0;
+}
+
+.style-container > input {
+  width: 200%;
+  height: 2rem;
+  text-align: bottom;
+} */
+
+.btn {
+  display: block;
+  /* width: 100%; */
+  padding: 0.5rem 1rem;
+  height: 2rem;
+  color: white;
+  background-color: #6c2274;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-family: "Spartan", sans-serif;
+  cursor: pointer;
+}
+
+.submit-btn {
+  position: relative;
+  bottom: 40%;
+  right: -35%;
+  display: block;
+  /* float: right; */
+  height: auto;
+}
+
+.mint-btn {
+  position: relative;
+  bottom: 90%;
+  right: -40%;
+  display: block;
+  /* float: right; */
+  height: auto;
+}
+
+.submit-btn-container {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.img-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-right: auto;
+}
+
+/* .img-group-inside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+} */
+
+.img-description {
+  padding: 0px 2.5rem;
+  margin: 0px;
+  /* margin-right: 5rem; */
+  max-width: 256px;
+  color: white;
+  word-wrap: break-word;
+  font-size: 12px;
+}
+
+.img-container {
+  position: relative;
+  padding: 2.5rem;
+  padding-bottom: 0rem;
+  margin-right: auto;
 }
