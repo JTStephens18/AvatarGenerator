@@ -30,8 +30,10 @@ function App() {
 
   const [test, setTest] = useState(null);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    loadBlockchainData();
+    // loadBlockchainData();
   }, []);
 
   const loadBlockchainData = async () => {
@@ -97,7 +99,7 @@ function App() {
   const generateImage = async (req, res) => {
     console.log("Request received");
 
-    const prompt = "Justephens " + promptInput.style + " " + promptInput.artist + " " + promptInput.medium + " " + promptInput.details;
+    const prompt = "Justephens " + promptInput.style + " character portrait in the style of " + promptInput.artist + " " + promptInput.medium + " " + promptInput.details;
     console.log("prompt: ", prompt);
 
     if (loadTime > 0) {
@@ -131,12 +133,14 @@ function App() {
     );
 
       if(response.ok) {
+        setIsLoading(true);
         const buffer = await response.arrayBuffer();
         // res.status(200).json({image: buffer});
         const base64 = bufferToBase64(buffer);
         setImage(base64);
         setFinalPrompt(prompt);
 
+        setIsLoading(false);
         var tester = JSON.stringify(buffer);
         setTest(tester);
         console.log("tester: ", tester);
@@ -218,7 +222,11 @@ function App() {
             />
           </div>
           <div className="submit-btn-container">
-            <button className="submit-btn btn" onClick={() => generateImage()}>Generate</button>
+            {!isLoading ? (
+              <button className="submit-btn btn" onClick={() => generateImage()}>Generate</button>
+            ) : (
+              <div></div>
+            )}
             {/* {image && ( */}
               {/* <button onClick={() => mintNFT()}className="mint-btn btn">Mint</button> */}
             {/* )} */}
@@ -236,7 +244,7 @@ function App() {
               />
               <div>
               {/* <p className="img-description">{`Justephens ${promptInput.style} ${promptInput.artist} ${promptInput.medium} ${promptInput.details}`}</p> */}
-              <p className="img-description">{finalPrompt}</p>
+              {/* <p className="img-description">{finalPrompt}</p> */}
               {/* <button onClick={() => mintNFT()}className="mint-btn btn">Mint</button>
               <button onClick={() => convertImage()}>Log</button> */}
               </div>

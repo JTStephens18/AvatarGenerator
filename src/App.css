@@ -119,7 +119,7 @@
 .input-group {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 6rem);
   grid-column-gap: 22px;
   grid-row-gap: 0px;
   padding: 2.5rem;
@@ -150,6 +150,22 @@
   font-family: "Spartan", sans-serif;
   font-size: 14px;
   letter-spacing: 0.5px;
+}
+
+.style-container {
+  height: fit-content;
+}
+
+.medium-container {
+  height: fit-content;
+}
+
+.details-container {
+  height: fit-content;
+}
+
+.artist-container {
+  height: fit-content;
 }
 
 /* .style-container {
@@ -187,30 +203,30 @@
 }
 
 .submit-btn {
-  position: relative;
-  bottom: 40%;
-  right: -35%;
+  position: absolute;
+  /* bottom: 40%;*/
+  right: 0%;
   display: block;
   /* float: right; */
   height: auto;
 }
 
 .mint-btn {
-  position: relative;
-  bottom: 90%;
-  right: -40%;
+  position: absolute;
+  /* right: 100%; */
   display: block;
-  /* float: right; */
+  float: left;
   height: auto;
 }
 
 .submit-btn-container {
+  position: relative;
   grid-column-start: 2;
   grid-column-end: 3;
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: flex-end;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row; */
 }
 
 .img-group {
@@ -245,4 +261,42 @@
   padding: 2.5rem;
   padding-bottom: 0rem;
   margin-right: auto;
+}
+
+@media screen and (max-width: 640px) {
+  .main-container {
+    width: 75vw;
+    height: 75vh;
+  }
+
+  .App {
+    overflow-y: scroll;
+  }
+  ::placeholder {
+    opacity: 0;
+  }
+}
+
+@media screen and (min-width: 641px) and (max-width: 1007px) {
+  .main-container {
+    width: 75vw;
+    height: 75vh;
+  }
+  .main-content {
+    flex-direction: column;
+    /* justify-content: center; */
+    overflow-y: scroll;
+  }
+  .App {
+    overflow-y: scroll;
+  }
+
+  .input-group {
+    margin-right: 0px;
+    justify-content: center;
+  }
+
+  .img-group {
+    margin-right: 0px;
+  }
 }
