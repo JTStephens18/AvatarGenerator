@@ -5,6 +5,7 @@ import { hasSelectionSupport } from '@testing-library/user-event/dist/utils';
 import { mintContract } from './constants';
 import mintAbi from './artifacts/contracts/Mint.sol/Mint.json';
 import { ethers } from 'ethers';
+import cat from "./photos/cat.jpg";
 
 function App() {
 
@@ -97,9 +98,10 @@ function App() {
 
 
   const generateImage = async (req, res) => {
+    setIsLoading(true);
     console.log("Request received");
 
-    const prompt = "Justephens " + promptInput.style + " character portrait in the style of " + promptInput.artist + " " + promptInput.medium + " " + promptInput.details;
+    const prompt = "Justephens character portrait " + promptInput.style + " in the style of " + promptInput.artist + " " + promptInput.medium + " " + promptInput.details;
     console.log("prompt: ", prompt);
 
     if (loadTime > 0) {
@@ -133,13 +135,11 @@ function App() {
     );
 
       if(response.ok) {
-        setIsLoading(true);
         const buffer = await response.arrayBuffer();
         // res.status(200).json({image: buffer});
         const base64 = bufferToBase64(buffer);
         setImage(base64);
         setFinalPrompt(prompt);
-
         setIsLoading(false);
         var tester = JSON.stringify(buffer);
         setTest(tester);
@@ -153,9 +153,9 @@ function App() {
       } else {
         const json = await response.json();
         console.log("other: ", response.statusText, "json ", json);
+        setIsLoading(false);
         // res.status(response.status).json({error: response.statusText});
       }
-
       setResult(res);
       console.log("End of function");
   };
@@ -179,77 +179,105 @@ function App() {
     console.log("json: ", json);
   }
 
+  const renderImage = () => {
+    if (image && !isLoading) {
+      return (
+        <div className="image-container">
+          <img 
+            height="256"
+            width="256"
+            // src={cat}
+            src={image}
+            alt="ai portrait"
+            className="img-container"
+          />
+        </div>
+      )
+    } else if (isLoading) {
+      return (
+        <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+      )
+    }
+  }
+
   return (
     <div className="App">
       <div className="main-container">
       <h1 className="title">Generate an AI image of me!</h1>
       <div className="main-content">
         <div className="input-group">
-          <div className="style-container">
-            <h5 className="input-header">Style</h5>
-            <input 
-              type="text"
-              placeholder="Fantasy, surrealism, contemporary, etc.. "
-              onChange={(e) => handleInput(e, "style")}
-              className="input-field"
-            />
-          </div>
-          <div className="medium-container">
-            <h5 className="input-header">Medium</h5>
-            <input 
-              type="text"
-              placeholder="Oil, pencil, watercolor, digital, etc.."
-              onChange={(e) => handleInput(e, "medium")}
-              className="input-field"
-            />
-          </div>
-          <div className="artist-container">
-            <h5 className="input-header">Artist</h5>
-            <input 
-              type="text"
-              placeholder="Picasso, Van Gogh, Da Vinci, etc.."
-              onChange={(e) => handleInput(e, "artist")}
-              className="input-field"
-            />
-          </div>
-          <div className="details-container">
-            <h5 className="input-header">Details</h5>
-            <input 
-              type="text"
-              placeholder="Extra details"
-              onChange={(e) => handleInput(e, "details")}
-              className="input-field"
-            />
-          </div>
-          <div className="submit-btn-container">
-            {!isLoading ? (
-              <button className="submit-btn btn" onClick={() => generateImage()}>Generate</button>
-            ) : (
-              <div></div>
-            )}
-            {/* {image && ( */}
-              {/* <button onClick={() => mintNFT()}className="mint-btn btn">Mint</button> */}
-            {/* )} */}
-          </div>
+
+          {/* <div className="first-row"> */}
+            <div className="style-container">
+              <h5 className="input-header">Style</h5>
+              <input 
+                type="text"
+                placeholder="Fantasy, surrealism, contemporary, etc.. "
+                onChange={(e) => handleInput(e, "style")}
+                className="input-field"
+              />
+            </div>
+            <div className="medium-container">
+              <h5 className="input-header">Medium</h5>
+              <input 
+                type="text"
+                placeholder="Oil, pencil, watercolor, digital, etc.."
+                onChange={(e) => handleInput(e, "medium")}
+                className="input-field"
+              />
+            </div>
+          {/* </div> */}
+
+
+          {/* <div className="second-row"> */}
+            <div className="artist-container">
+              <h5 className="input-header">Artist</h5>
+              <input 
+                type="text"
+                placeholder="Picasso, Van Gogh, Da Vinci, etc.."
+                onChange={(e) => handleInput(e, "artist")}
+                className="input-field"
+              />
+            </div>
+            <div className="details-container">
+              <h5 className="input-header">Details</h5>
+              <input 
+                type="text"
+                placeholder="Extra details"
+                onChange={(e) => handleInput(e, "details")}
+                className="input-field"
+              />
+            </div>
+          {/* </div> */}
+
+          {/* <div className="third-row"> */}
+            {/* <div className="submit-btn-container"> */}
+              {!isLoading ? (
+                <button className="submit-btn btn" onClick={() => generateImage()}>Generate</button>
+              ) : (
+                <div></div>
+              )}
+              {/* {image && ( */}
+                {/* <button onClick={() => mintNFT()}className="mint-btn btn">Mint</button> */}
+              {/* )} */}
+            {/* </div> */}
+          {/* </div> */}
         </div>
+
         <div className="img-group">
-          {image && (
-            <div className="img-group-inside">
+          {renderImage()}
+          {/* {image && (!isLoading) ? (
               <img
                 height="256"
                 width="256"
+                // src={cat}
                 src={image}
                 alt="ai portrait"
                 className="img-container"
               />
-              <div>
-              {/* <p className="img-description">{`Justephens ${promptInput.style} ${promptInput.artist} ${promptInput.medium} ${promptInput.details}`}</p> */}
-              {/* <p className="img-description">{finalPrompt}</p> */}
-              {/* <button onClick={() => mintNFT()}className="mint-btn btn">Mint</button>
-              <button onClick={() => convertImage()}>Log</button> */}
-              </div>
-            </div>
-          )}
+           ) : (
+              <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+           )}  */}
         </div>
       </div>
       </div>
